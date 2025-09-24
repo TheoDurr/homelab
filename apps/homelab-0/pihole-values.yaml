@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pihole
+  namespace: pihole
+spec:
+  chart:
+    spec:
+      version: v2.34.0
+  values:
+    serviceWeb:
+      type: LoadBalancer
+      annotations:
+        lbipam.cilium.io/sharing-key: pihole-svc
+      extraLabels:
+        type: internal-dns
+
+    serviceDns: 
+      type: LoadBalancer
+      annotations:
+        lbipam.cilium.io/sharing-key: pihole-svc
+      extraLabels:
+        type: internal-dns
+
+    serviceDhcp:
+      enabled: false
+
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
