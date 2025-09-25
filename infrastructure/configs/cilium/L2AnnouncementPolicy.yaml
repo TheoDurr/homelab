@@ -12,5 +12,4 @@ spec:
           - "true"
   interfaces:
     - enp1s0
-  externalIPs: true
   loadBalancerIPs: true
