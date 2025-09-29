@@ -1,0 +1,8 @@
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: gateways-pool
+spec:
+  blocks:
+    - start: 10.100.30.200
+      stop: 10.100.30.210
