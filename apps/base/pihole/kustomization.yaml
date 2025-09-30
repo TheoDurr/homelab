@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: pihole
 resources:
 - namespace.yaml
-- secret.yaml
+- secrets.yaml
 - repository.yaml
 - release.yaml
 - ippool.yaml
