@@ -1,0 +1,74 @@
+# The GroupName here is used to identify your company or business unit that
+# created this webhook.
+# For example, this may be "acme.mycompany.com".
+# This name will need to be referenced in each Issuer's `webhook` stanza to
+# inform cert-manager of where to send ChallengePayload resources in order to
+# solve the DNS01 challenge.
+# This group name should be **unique**, hence using your own company's domain
+# here is recommended.
+groupName: acme.theoraime.com
+
+certManager:
+  namespace: cert-manager
+  serviceAccountName: cert-manager
+
+# Use these variables to configure the HTTP_PROXY environment variables.
+
+# Configures the HTTP_PROXY environment variable where a HTTP proxy is required.
+# +docs:property
+# http_proxy: "http://proxy:8080"
+
+# Configures the HTTPS_PROXY environment variable where a HTTP proxy is required.
+# +docs:property
+# https_proxy: "https://proxy:8080"
+
+# Configures the NO_PROXY environment variable where a HTTP proxy is required,
+# but certain domains should be excluded.
+# +docs:property
+# no_proxy: 127.0.0.1,localhost
+
+# used to add a namespace declaration to the static manifest,
+# prefer `--create-namespaces` with `helm install` >= 3.2
+# see https://github.com/helm/helm/issues/6794
+createReleaseNamespace: false
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/infomaniak/cert-manager-webhook-infomaniak
+  tag: v0.3.1
+  pullPolicy: IfNotPresent
+
+imagePullSecret: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+secretsNames:
+  - "infomaniak-api-credentials"
+
+service:
+  type: ClusterIP
+  port: 443
+
+debug:
+  enabled: false
+  port: 30000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
