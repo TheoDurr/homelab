@@ -6,6 +6,7 @@ metadata:
 spec:
   parentRefs:
     - name: internal
+      namespace: infrastructure
   hostnames:
     - pihole.cloud.theoraime.com
   rules:
