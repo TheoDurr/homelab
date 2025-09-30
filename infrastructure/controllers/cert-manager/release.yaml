@@ -4,7 +4,6 @@ metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
-  interval: 15m
   releaseName: cert-manager
   interval: 15m
   chart:
