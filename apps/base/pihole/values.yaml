@@ -184,7 +184,7 @@ probes:
       - "curl --silent http://localhost/api/info/login | jq 'if (.dns | not) then halt_error(1) end'"
     enabled: true
     # -- wait time before trying the liveness probe
-    initialDelaySeconds: 60
+    initialDelaySeconds: 20
     # -- threshold until the probe is considered failing
     failureThreshold: 10
     # -- timeout in seconds
@@ -201,7 +201,7 @@ probes:
       - "curl --silent http://localhost/api/info/login | jq 'if (.dns | not) then halt_error(1) end'"
     enabled: true
     # -- wait time before trying the readiness probe
-    initialDelaySeconds: 60
+    initialDelaySeconds: 20
     # -- threshold until the probe is considered failing
     failureThreshold: 10
     # -- timeout in seconds
