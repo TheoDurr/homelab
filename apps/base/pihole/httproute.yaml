@@ -1,0 +1,14 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pihole-web
+  namespace: pihole
+spec:
+  parentRefs:
+    - name: internal
+  hostnames:
+    - pihole.cloud.theoraime.com
+  rules:
+    - backendRefs:
+        - name: pihole-web
+          port: 80

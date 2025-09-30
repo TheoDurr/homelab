@@ -6,6 +6,7 @@ resources:
 - repository.yaml
 - release.yaml
 - ippool.yaml
+- httproute.yaml
 
 configMapGenerator:
   - name: pihole-values
