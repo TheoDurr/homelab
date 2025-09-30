@@ -15,6 +15,6 @@ spec:
         name: pihole
         namespace: pihole
 
-  values:
-    persistentVolumeClaim:
-      enabled: true
+  valuesFrom:
+    - kind: ConfigMap
+      name: pihole-values
