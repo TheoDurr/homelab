@@ -14,3 +14,7 @@ spec:
         kind: HelmRepository
         name: sealed-secrets
         namespace: flux-system
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
