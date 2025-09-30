@@ -4,7 +4,7 @@ metadata:
   name: sealed-secrets
   namespace: flux-system
 spec:
-  releaseName: sealed-secrets
+  releaseName: sealed-secrets-controller
   interval: 15m
   chart:
     spec:
