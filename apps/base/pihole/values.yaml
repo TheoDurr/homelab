@@ -38,10 +38,10 @@ dnsHostPort:
 # -- Configuration for the DNS service on port 53
 serviceDns:
   # -- deploys a mixed (TCP + UDP) Service instead of separate ones
-  mixedService: false
+  mixedService: true
 
   # -- `spec.type` for the DNS Service
-  type: ClusterIP
+  type: LoadBalancer
 
   # -- The port of the DNS service
   port: 53
@@ -60,9 +60,8 @@ serviceDns:
   loadBalancerClass: ""
 
   # -- Annotations for the DNS service
-  annotations: {}
-    # metallb.universe.tf/address-pool: network-services
-    # metallb.universe.tf/allow-shared-ip: pihole-svc
+  annotations: 
+    lbipam.cilium.io/ips: 10.100.30.199
 
   # -- Labels for the DNS service
   extraLabels:
@@ -224,7 +223,7 @@ resources: {}
 # -- `spec.PersitentVolumeClaim` configuration
 persistentVolumeClaim:
   # -- set to true to use pvc
-  enabled: false
+  enabled: true
 
   # -- specify an existing `PersistentVolumeClaim` to use
   # existingClaim: ""

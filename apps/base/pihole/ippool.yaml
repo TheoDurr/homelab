@@ -1,0 +1,10 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: pihole
+spec:
+  blocks:
+    - cidr: 10.100.30.199/32
+  serviceSelector:
+    matchLabels:
+      app.kubernetes.io/name: pihole
