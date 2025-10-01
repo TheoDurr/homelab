@@ -14,3 +14,6 @@ spec:
         name: infomaniak-webhook
         namespace: cert-manager
 
+  valuesFrom:
+    - kind: ConfigMap
+      name: infomaniak-webhook-values
