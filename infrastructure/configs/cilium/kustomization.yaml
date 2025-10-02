@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - ippools.yaml
   - l2policy.yaml
-  - gateways
