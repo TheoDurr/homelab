@@ -15,3 +15,7 @@ spec:
         kind: HelmRepository
         name: longhorn
         namespace: longhorn
+
+  valuesFrom:
+    - kind: ConfigMap
+      name: longhorn-values
