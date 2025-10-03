@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: longhorn
   labels:
-    - allow-internal-gateway: "true" 
+    allow-internal-gateway: "true" 
