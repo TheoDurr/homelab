@@ -1,25 +1,16 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: internal
+  name: external
   namespace: infrastructure
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
 spec:
   addresses:
     - type: IPAddress
-      value: 10.100.30.200
+      value: 10.100.30.201
   gatewayClassName: cilium
   listeners:
-    - name: http
-      protocol: HTTP
-      port: 80
-      allowedRoutes:
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              allow-internal-gateway: "true"
     - name: https
       protocol: HTTPS
       port: 443
@@ -34,4 +25,4 @@ spec:
           from: Selector
           selector:
             matchLabels:
-              allow-internal-gateway: "true"
+              allow-external-gateway: "true"
