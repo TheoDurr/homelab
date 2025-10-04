@@ -4,5 +4,6 @@ resources:
   - cert-manager
   - cert-manager-infomaniak-webhook
   - cilium
+  - cloudnativepg
   - longhorn
   - sealed-secrets
