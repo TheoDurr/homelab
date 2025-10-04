@@ -7,6 +7,8 @@ spec:
   parentRefs:
     - name: internal
       namespace: infrastructure
+    - name: external
+      namespace: infrastructure
   hostnames:
     - auth.cloud.theoraime.com
   rules:

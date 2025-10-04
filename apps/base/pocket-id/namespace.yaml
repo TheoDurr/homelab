@@ -4,3 +4,4 @@ metadata:
   name: pocket-id
   labels:
     allow-internal-gateway: "true"
+    allow-external-gateway: "true"
