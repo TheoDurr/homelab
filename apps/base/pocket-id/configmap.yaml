@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pocket-id-config
+  namespace: pocket-id
+data:
+  APP_URL: "https://auth.cloud.theoraime.com"
+  TRUST_PROXY: "true"
+  LOG_JSON: "true"
+  ANALYTICS_DISABLED: "true"
+  UI_CONFIG_DISABLED: "true"
+  ACCENT_COLOR: "#9050ee"
+  DB_PROVIDER: "postgres"
