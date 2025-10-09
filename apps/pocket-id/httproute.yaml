@@ -13,5 +13,5 @@ spec:
     - auth.cloud.theoraime.com
   rules:
     - backendRefs:
-        - name: pocket-id-web
+        - name: pocket-id-ui
           port: 80
