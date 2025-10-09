@@ -29,7 +29,7 @@ spec:
                 secretKeyRef:
                   name: pocket-id-database-app
                   key: uri
-        - envFrom:
+          envFrom:
             - configMapRef:
                 name: pocket-id-config
             - secretRef:
