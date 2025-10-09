@@ -1,35 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pocket-id
+  labels:
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: pocket-id
+    app.kubernetes.io/part-of: pocket-id
+    app.kubernetes.io/version: 1.12.0
+  name: pocket-id-ui
   namespace: pocket-id
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pocket-id
+      app: pocket-id-ui
   template:
     metadata:
       labels:
-        app: pocket-id
+        app: pocket-id-ui
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/instance: pocket-id
+        app.kubernetes.io/part-of: pocket-id
+        app.kubernetes.io/version: 1.12.0
     spec:
       containers:
-        - name: pocket-id
-          image: ghcr.io/pocket-id/pocket-id:v1.12.0
-          ports:
-            - name: http
-              containerPort: 1411
-              protocol: TCP
-          envFrom:
+        - envFrom:
             - configMapRef:
                 name: pocket-id-config
             - secretRef:
                 name: pocket-id-secrets
+          image: ghcr.io/pocket-id/pocket-id:v1.12.0
           livenessProbe:
             initialDelaySeconds: 10
             httpGet:
               path: /healthz
               port: http
+          name: pocket-id
+          ports:
+            - name: http
+              containerPort: 1411
+              protocol: TCP
           readinessProbe:
             initialDelaySeconds: 10
             httpGet:
