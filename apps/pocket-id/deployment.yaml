@@ -50,16 +50,16 @@ spec:
             httpGet:
               path: /healthz
               port: http
+          resources:
+            limits:
+              cpu: "50m"
+              memory: "60Mi"
+            requests:
+              cpu: "20m"
+              memory: "30Mi"
           volumeMounts:
             - name: pocket-id-data
               mountPath: /app/data
-      resources:
-        limits:
-          cpu: "50m"
-          memory: "60Mi"
-        requests:
-          cpu: "20m"
-          memory: "30Mi"
       volumes:
         - name: pocket-id-data
           persistentVolumeClaim:
