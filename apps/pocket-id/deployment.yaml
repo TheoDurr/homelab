@@ -34,7 +34,7 @@ spec:
                 name: pocket-id-config
             - secretRef:
                 name: pocket-id-secrets
-          image: ghcr.io/pocket-id/pocket-id:v1.12.0
+          image: ghcr.io/pocket-id/pocket-id:v1.14.2
           livenessProbe:
             initialDelaySeconds: 10
             httpGet:
