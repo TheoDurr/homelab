@@ -1,0 +1,26 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-dns-from-world"
+  namespace: pihole
+spec:
+  endpointSelector:
+    matchLabels:
+      app: pihole
+  ingress:
+  - fromCIDR:
+    - 10.100.0.0/16
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-dns-to-upstream"
+  namespace: pihole
+spec:
+  description: "Allow egress to Upstream DNS servers"
+  endpointSelector:
+    matchLabels:
+      app: pihole
+  egress:
+  - toEntities:
+    - world

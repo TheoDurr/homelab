@@ -1,0 +1,27 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: external-lockdown
+spec:
+  description: "Block all the traffic originating from outside of the cluster"
+  endpointSelector: {}
+  ingress:
+  - fromEntities:
+    - cluster
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: ingress-identity-policy
+spec:
+  description: "Allow all the egress traffic from reserved ingress identity to any endpoints in the cluster. Allows the ingress traffic to reserved ingress entity"
+  endpointSelector:
+    matchExpressions:
+    - key: reserved:ingress
+      operator: Exists
+  ingress:
+  - fromEntities:
+    - world
+  egress:
+  - toEntities:
+    - cluster
