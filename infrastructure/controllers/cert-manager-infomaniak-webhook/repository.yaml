@@ -7,7 +7,6 @@ spec:
   interval: 1h
   url: https://github.com/Infomaniak/cert-manager-webhook-infomaniak
   ref:
-   branch: master
-  ignore: |
-    /*
-    !/deploy/
+   branch: v0.3.1
+  sparseCheckout:
+  - deploy
