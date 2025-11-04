@@ -1,0 +1,25 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: valkey
+  namespace: paperless
+spec:
+  interval: 1h
+  url: https://valkey.io/valkey-helm/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valkey
+  namespace: paperles
+spec:
+  releaseName: valkey
+  interval: 15m
+  chart:
+    spec:
+      chart: valkey
+      version: 0.7.7
+      sourceRef:
+        kind: HelmRepository
+        name: valkey
+        namespace: paperless
