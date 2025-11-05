@@ -4,7 +4,7 @@ metadata:
   name: paperless
   namespace: paperless
 spec:
-  releaseName: infomaniak-webhook
+  releaseName: paperless
   interval: 15m
   chart:
     spec:

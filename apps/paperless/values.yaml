@@ -39,6 +39,8 @@ config:
   paperlessRedirectLoginToSso: false
   # Disable document consumption
   paperlessConsumerDisable: true
+  # Disable email fetching
+  paperlessEmailTaskCron: disable
   # Set OCR to french
   paperlessOcrLanguage: fra
 
