@@ -14,7 +14,7 @@ spec:
 
   storage:
     storageClass: database
-    size: 1Gi
+    size: 5Gi
 
   managed:
     services:

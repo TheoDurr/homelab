@@ -23,4 +23,4 @@ spec:
         - ro
   storage:
     storageClass: database
-    size: 1Gi
+    size: 2Gi
