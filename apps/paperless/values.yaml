@@ -33,7 +33,8 @@ config:
   paperlessApps: allauth.socialaccount.providers.openid_connect
   paperlessSocialAllowSignup: true
   paperlessSocialAutoSignup: true
-  paperlessDisableRegularLogin: false
+  paperlessSocialAccountSyncGroups: true
+  paperlessDisableRegularLogin: true
   paperlessRedirectLoginToSso: false
   # Disable document consumption
   paperlessConsumerDisable: true
