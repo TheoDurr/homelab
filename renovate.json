@@ -4,6 +4,9 @@
     "config:recommended"
   ],
   "flux": {
-    "fileMatch": ["\\.yaml$"]
-  }
+    "fileMatch": ["\\.ya?ml$"]
+  },
+  "kubernetes": {
+    "fileMatch": ["cluster/.+\\.ya?ml$"]
+  },
 }
