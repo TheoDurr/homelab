@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/component: frontend
     app.kubernetes.io/instance: pocket-id
     app.kubernetes.io/part-of: pocket-id
-    app.kubernetes.io/version: 1.14.2
+    app.kubernetes.io/version: 1.15.0
   name: pocket-id-ui
   namespace: pocket-id
 spec:
