@@ -4,9 +4,13 @@
     "config:recommended"
   ],
   "flux": {
-    "fileMatch": ["\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/\\.ya?ml$/"
+    ]
   },
   "kubernetes": {
-    "fileMatch": ["cluster/.+\\.ya?ml$"]
-  },
+    "managerFilePatterns": [
+      "/cluster/.+\\.ya?ml$/"
+    ]
+  }
 }
