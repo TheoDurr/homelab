@@ -1,0 +1,220 @@
+# Default values for actual-budget.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 1
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: ghcr.io/actualbudget/actual
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+  # To use the alpine version or not
+  alpine: true
+
+# This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: []
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# This is for setting Kubernetes Annotations to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+podAnnotations: {}
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  port: 5006
+
+data:
+  # This is where the server stores the budget data files
+  rootDirectory: /data
+  # The server will put all budget files in this directory
+  userFiles: /data/user-files
+  # The server will put an account.sqlite file in this directory
+  serverFiles: /data/server-files
+
+# This block is for setting up persistent storage via a PersistentVolumeClaim (or an existing one)
+persistence:
+  # Enable PersistentVolumeClaim creation
+  enabled: true
+  # Sets the mounted PersistentVolumeClaim to an existing one
+  existingClaimName: ""
+  # PVC annotations
+  annotations: {}
+  # PVC storageClass. Leave empty to use default
+  storageClassName: ""
+  # PVC access modes
+  accessModes:
+    - ReadWriteMany
+  # PVC size
+  size: 5Gi
+  # If true, keep the PVC on Helm uninstall
+  keepPvc: false
+
+login:
+  # Change the default auth method for Actual
+  # Allowed values: password, header, openid
+  defaultMethod: openid
+  
+  # The list of auth methods allowed to be used
+  allowedMethods:
+    - openid
+
+  # This block is for setting up OpenID if used
+  openid:
+    # Enable (or not) OpenID
+    enforce: true
+    # Auth method (openid or oauth2)
+    # Use oauth2 for providers like GitHub that don't fully support OpenID discovery
+    authMethod: openid
+    # The name of the provider
+    providerName: Pocket ID
+    # URL for the OpenID provider
+    discoveryUrl: https://auth.cloud.theoraime.com
+    # This is for setting up the secrets (id and secret key) for the OpenID provider
+    secret:
+      # The secret name
+      name: "actual-oauth-secrets"
+      # The key for the OpenID client ID
+      clientIDKey: "clientId"
+      # The key for the OpenID client Secret
+      clientSecretKey: "clientSecret"
+    # The hostname of your actual instance
+    serverHostname: https://actual.cloud.theoraime.com
+    # Controls how access tokens expire. Possible values are :
+    #   "never" (tokens never expire - current default)
+    #   "openid-provider" (tokens follow the expiration time from the OpenID provider)
+    #   A numeric value in seconds (e.g., 3600 for 1 hour)
+    tokenExpiration: never
+
+# This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Expose the service via gateway-api HTTPRoute
+# Requires Gateway API resources and suitable controller installed within the cluster
+# (see: https://gateway-api.sigs.k8s.io/guides/)
+httpRoute:
+  # HTTPRoute enabled.
+  enabled: true
+  # HTTPRoute annotations.
+  annotations: {}
+  # Which Gateways this Route is attached to.
+  parentRefs:
+  - name: internal
+    sectionName: https
+    namespace: infrastructure
+  - name: external
+    sectionName: https
+    namespace: infrastructure
+  # Hostnames matching HTTP header.
+  hostnames:
+  - actual.cloud.theoraime.com
+  # List of rules and filters applied.
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+  #   filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #       - name: My-Overwrite-Header
+  #         value: this-is-the-only-value
+  #       remove:
+  #       - User-Agent
+  # - matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /echo
+  #     headers:
+  #     - name: version
+  #       value: v2
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+readinessProbe:
+  httpGet:
+    path: /health
+    port: http
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

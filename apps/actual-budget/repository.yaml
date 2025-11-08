@@ -1,0 +1,12 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: actual-budget
+  namespace: actual-budget
+spec:
+  interval: 5m0s
+  url: https://github.com/TheoDurr/actual-budget-helm
+  ref:
+    branch: main
+  sparseCheckout:
+  - charts

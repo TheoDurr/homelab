@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: actual-budget
+  namespace: actual-budget
+spec:
+  releaseName: actual-budget
+  interval: 15m
+  chart:
+    spec:
+      chart: charts/actual-budget
+      sourceRef:
+        kind: GitRepository
+        name: actual-budget
+        namespace: actual-budget
+
+  valuesFrom:
+    - kind: ConfigMap
+      name: actual-budget-values
