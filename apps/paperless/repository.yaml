@@ -7,6 +7,6 @@ spec:
   interval: 5m0s
   url: https://github.com/TheoDurr/paperless-ngx-helm
   ref:
-    tag: v0.0.3
+    tag: v0.0.4
   sparseCheckout:
   - charts
